@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 
 import { Book } from "app/models/book";
 import { Reader } from "app/models/reader";
 import { LoggerService } from "app/core/logger.service";
 import { DataService } from "app/core/data.service";
+import { BookTrackerError } from "app/models/bookTrackerError";
 
 @Component({
   selector: "app-dashboard",
@@ -24,8 +26,41 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.allBooks = this.dataService.getAllBooks();
-    this.allReaders = this.dataService.getAllReaders();
+    this.dataService.getAllReaders().subscribe(
+      (data: Reader[]) => (this.allReaders = data),
+      (err: BookTrackerError) => console.error(err.friendlyMessage),
+      () => this.loggerService.log("All done getting readers!")
+    );
     this.mostPopularBook = this.dataService.mostPopularBook;
+
+    this.getAuthorRecommendationAsync(1).catch(
+      err => this.loggerService.error(err)
+    );
+
+    // this.dataService
+    //   .getAuthorRecommendation(1)
+    //   .then(
+    //     (author: string) => {
+    //       this.loggerService.log(author);
+    //       throw new Error("Problem in the success handler!");
+    //     },
+    //     (err: string) =>
+    //       this.loggerService.error(`The promise was rejected: ${err}`)
+    //   )
+    //   .catch((error: Error) => this.loggerService.error(error.message));
+
+    this.loggerService.log("All done with dashboard onInit");
+  }
+
+  private async getAuthorRecommendationAsync(readerID: number): Promise<void> {
+    try {
+      let author: string = await this.dataService.getAuthorRecommendation(
+        readerID
+      );
+      this.loggerService.log(author);
+    // } catch (error) {
+    //   this.loggerService.error(error);
+    }
   }
 
   deleteBook(bookID: number): void {
