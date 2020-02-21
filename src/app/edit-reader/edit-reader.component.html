@@ -6,24 +6,61 @@
         <div class="form-group">
           <label for="inputGoal" class="col-lg-3 control-label">Name</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="inputGoal" placeholder="Name" [(ngModel)]="selectedReader.name" name="name">
+            <input
+              type="text"
+              class="form-control"
+              id="inputGoal"
+              placeholder="Name"
+              [(ngModel)]="selectedReader.name"
+              name="name"
+            />
           </div>
         </div>
         <div class="form-group">
-          <label for="inputGoal" class="col-lg-3 control-label">Weekly Goal</label>
+          <label for="inputGoal" class="col-lg-3 control-label"
+            >Weekly Goal</label
+          >
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="inputGoal" placeholder="Weekly Goal" [(ngModel)]="selectedReader.weeklyReadingGoal" name="weeklyReaddingGoal">
+            <input
+              type="text"
+              class="form-control"
+              id="inputGoal"
+              placeholder="Weekly Goal"
+              [(ngModel)]="selectedReader.weeklyReadingGoal"
+              name="weeklyReaddingGoal"
+            />
           </div>
         </div>
         <div class="form-group">
-          <label for="inputTotal" class="col-lg-3 control-label">Total Read</label>
+          <label for="inputTotal" class="col-lg-3 control-label"
+            >Total Read</label
+          >
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="inputTotal" placeholder="Total Minutes Read" [(ngModel)]="selectedReader.totalMinutesRead" name="totalMinutesRead">
+            <input
+              type="text"
+              class="form-control"
+              id="inputTotal"
+              placeholder="Total Minutes Read"
+              [(ngModel)]="selectedReader.totalMinutesRead"
+              name="totalMinutesRead"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Current Badge</label>
+          <div class="col-lg-8">
+            {{ currentBadge }}
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-10 col-lg-offset-3">
-            <button type="button" class="btn btn-primary" (click)="saveChanges()">Save</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="saveChanges()"
+            >
+              Save
+            </button>
           </div>
         </div>
       </fieldset>
