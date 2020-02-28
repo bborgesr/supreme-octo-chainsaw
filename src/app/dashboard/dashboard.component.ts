@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Version, VERSION } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs";
 
 import { Book } from "app/models/book";
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private loggerService: LoggerService,
-    private dataService: DataService
+    private dataService: DataService,
+    private title: Title
   ) {
     this.loggerService.log("Creating the dashboard");
   }
@@ -32,6 +34,8 @@ export class DashboardComponent implements OnInit {
       () => this.loggerService.log("All done getting readers!")
     );
     this.mostPopularBook = this.dataService.mostPopularBook;
+
+    this.title.setTitle(`Book Tracker ${VERSION.full}`)
 
     this.getAuthorRecommendationAsync(1).catch(
       err => this.loggerService.error(err)
@@ -50,6 +54,7 @@ export class DashboardComponent implements OnInit {
     //   .catch((error: Error) => this.loggerService.error(error.message));
 
     this.loggerService.log("All done with dashboard onInit");
+    throw new Error("Ugly technical error");
   }
 
   private async getAuthorRecommendationAsync(readerID: number): Promise<void> {
